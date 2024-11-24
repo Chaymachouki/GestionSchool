@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebApplication3.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary"  asp-action="Create">Create New</a>
+</p>
+<form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Student">
+    <p>
+        <!-- Champ de recherche pour le nom de l'étudiant -->
+        <input size="30" placeholder="Tapez un Nom" type="search" name="name" />
+
+        <!-- Liste déroulante pour choisir l'école -->
+        <select asp-items="ViewBag.SchoolID" name="schoolid" size="1" style="width:300px; height:30px"></select>
+
+        <!-- Bouton pour soumettre la recherche -->
+        <button class="btn btn-primary" type="submit">Recherche</button>
+    </p>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.School)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.School.SchoolName)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.StudentId"> <img src="~/images/m.jpg" style="height:45px; width:45px" /></a> |
+                    <a asp-action="Details" asp-route-id="@item.StudentId"><img src="~/images/v.jpg" style="height:45px; width:45px" /></a> |
+                    <a asp-action="Delete" asp-route-id="@item.StudentId"><img src="~/images/R.png" style="height:45px; width:45px" /></a>
+            </td>
+        </tr>
+            
+}
+    </tbody>
+</table><a asp-action="Index" asp-controller="Student"> All Students</a>
